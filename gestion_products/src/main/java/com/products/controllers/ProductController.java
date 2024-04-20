@@ -6,8 +6,8 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,19 +16,58 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.products.dtos.ProductDto;
 import com.products.requests.ProductRequest;
 import com.products.responses.ProductResponse;
 import com.products.services.ProductService;
 
-@RestController
-@RequestMapping("/api/products")
+@Controller
+@RequestMapping("/restoran")
 public class ProductController {
 	
 	@Autowired
 	ProductService productService;
+	
+	@GetMapping("/home")
+	public String getIndex() {
+		return "index";
+	}
+	
+	@GetMapping("/about")
+	public String getAbout() {
+		return "about";
+	}
+	
+	@GetMapping("/booking")
+	public String getBooking() {
+		return "booking";
+	}
+	
+	@GetMapping("/contact")
+	public String getContact() {
+		return "contact";
+	}
+	
+	@GetMapping("/menu")
+	public String getMenu() {
+		return "menu";
+	}
+	
+	@GetMapping("/service")
+	public String getService() {
+		return "service";
+	}
+	
+	@GetMapping("/team")
+	public String getTeam() {
+		return "team";
+	}
+	
+	@GetMapping("/testimonial")
+	public String getTestimonial() {
+		return "testimonial";
+	}
 
 	@GetMapping("/all")
 	public List<ProductResponse> getProducts() {
@@ -41,9 +80,9 @@ public class ProductController {
 		
 		for(ProductDto product: listProducts) {
 			
-			ProductResponse products = modelMapper.map(product, ProductResponse.class);
+			ProductResponse prd_item = modelMapper.map(product, ProductResponse.class);
 			
-			productsResponses.add(products);
+			productsResponses.add(prd_item);
 		}
 		
 		return productsResponses;
