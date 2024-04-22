@@ -1,14 +1,18 @@
 package com.products.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity()
@@ -106,6 +110,9 @@ public class ProductEntity implements Serializable {
 	public void setPrix(int prix) {
 		this.prix = prix;
 	}
+	
+	@ManyToMany(mappedBy = "products", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<CommandeEntity> commandes;
 
 	
 	

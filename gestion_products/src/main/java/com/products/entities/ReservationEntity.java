@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,7 +32,7 @@ public class ReservationEntity implements Serializable {
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "table_id")
 	private TableEntity table;
 	

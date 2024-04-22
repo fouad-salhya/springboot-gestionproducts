@@ -44,6 +44,28 @@ public class UserEntity implements Serializable  {
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<FeedbackEntity> feedbacks;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<ReservationEntity> reservations;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<CommandeEntity> commandes;
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public List<ReservationEntity> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(List<ReservationEntity> reservations) {
+		this.reservations = reservations;
+	}
 
 	public long getId() {
 		return id;

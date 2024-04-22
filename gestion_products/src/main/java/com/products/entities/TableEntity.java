@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,6 +28,9 @@ public class TableEntity implements Serializable{
 	
 	@Column
 	private int numero;
+	
+	@OneToOne(mappedBy = "table")
+	private ReservationEntity reservation;
 
 	public long getId() {
 		return id;
