@@ -34,6 +34,7 @@ public class ProductController {
 		return "index";
 	}
 	
+	
 	@GetMapping("/about")
 	public String getAbout() {
 		return "about";

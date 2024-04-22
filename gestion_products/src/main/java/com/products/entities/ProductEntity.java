@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,14 +15,11 @@ import jakarta.persistence.Table;
 @Table(name = "products")
 public class ProductEntity implements Serializable {
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -1731003168490831591L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
 	private long id;
 	
 	@Column
@@ -35,6 +34,38 @@ public class ProductEntity implements Serializable {
 	@Column 
 	private int prix;
 	
+	@Column
+	private String description;
+	
+	@Column
+	private byte[] image;
+	
+	@Enumerated(EnumType.STRING)
+	private Type type;
+	
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
 
 	public long getId() {
 		return id;
