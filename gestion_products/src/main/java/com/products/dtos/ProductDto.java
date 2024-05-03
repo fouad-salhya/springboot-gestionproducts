@@ -1,5 +1,6 @@
 package com.products.dtos;
 
+import com.products.entities.Type;
 
 public class ProductDto {
 
@@ -8,6 +9,14 @@ public class ProductDto {
 	private String category;
 	private int prix;
 	
+	private Type type;
+	
+	public Type getType() {
+		return type;
+	}
+	public void setType(Type type) {
+		this.type = type;
+	}
 	public String getProductId() {
 		return productId;
 	}

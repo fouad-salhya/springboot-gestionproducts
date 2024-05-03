@@ -8,6 +8,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import com.products.entities.ProductEntity;
+import com.products.entities.Type;
 
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Long>, PagingAndSortingRepository<ProductEntity, Long>{
@@ -21,5 +22,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long>, P
 	
 	@Query(value = "SELECT * FROM  products ", nativeQuery = true)
 	List<ProductEntity> findAllByQuery();
+	
+	List<ProductEntity> findAllByType(Type type);
 
 }

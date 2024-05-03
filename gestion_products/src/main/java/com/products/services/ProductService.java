@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.products.dtos.ProductDto;
 import com.products.entities.ProductEntity;
+import com.products.entities.Type;
 import com.products.repository.ProductRepository;
 import com.products.shared.Utils;
 
@@ -24,23 +25,15 @@ public class ProductService {
 	@Autowired
 	Utils utils;
 	
-	public List<ProductDto> getProducts() {
+	public List<ProductEntity> getProducts() {
 		
-		ModelMapper modelMapper = new ModelMapper();
-		
-		List<ProductDto> productsdto = new ArrayList<>();
 		
 		List<ProductEntity> productsEntity = productRepository.findAll();
 		
-		for(ProductEntity product: productsEntity ) {
-			
-			ProductDto productDto = modelMapper.map(product, ProductDto.class);
-			
-			productsdto.add(productDto);
-		}
-		
-		return productsdto;
+		return productsEntity;
 	};
+	
+	
 	
 	public ProductDto createProduct(ProductDto productDto) {
 		
@@ -49,6 +42,7 @@ public class ProductService {
 		ProductEntity productEntity = modelMapper.map(productDto, ProductEntity.class);
 		
 		productEntity.setProductId(utils.generateStringId(32));
+		
 		
 		ProductEntity newProduct = productRepository.save(productEntity);
 		
@@ -128,6 +122,9 @@ public class ProductService {
 		return productsDto;
 		
 	}
+	
+	
+	
 	
 	
 	

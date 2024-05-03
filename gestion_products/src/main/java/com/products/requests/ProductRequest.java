@@ -1,5 +1,6 @@
 package com.products.requests;
 
+import com.products.entities.Type;
 
 public class ProductRequest {
 	
@@ -8,6 +9,16 @@ public class ProductRequest {
 	private String category;
 	
 	private int prix;
+	
+	private Type type;
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
 
 	public String getName() {
 		return name;
