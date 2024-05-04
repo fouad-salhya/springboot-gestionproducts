@@ -8,13 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.MailException;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.products.dtos.ProductDto;
 import com.products.entities.ProductEntity;
+import com.products.entities.ReservationEntity;
 import com.products.entities.Type;
 import com.products.repository.ProductRepository;
+import com.products.repository.ReservationRepository;
 import com.products.shared.Utils;
+
+import jakarta.mail.internet.MimeMessage;
 
 @Service
 public class ProductService {
@@ -23,16 +30,52 @@ public class ProductService {
 	ProductRepository productRepository;
 	
 	@Autowired
+	ReservationRepository reservationRepository;
+	
+	@Autowired
 	Utils utils;
 	
+	@Autowired
+	JavaMailSender javaMailSender;
+	
+	
+	
 	public List<ProductEntity> getProducts() {
-		
 		
 		List<ProductEntity> productsEntity = productRepository.findAll();
 		
 		return productsEntity;
 	};
 	
+	public void reserverTable(ReservationEntity reservation) {
+		
+		reservation.setReservationId(utils.generateStringId(32));
+		
+	    reservationRepository.save(reservation);
+	    
+	    sendEmail(reservation);
+		
+	}
+	
+	private void sendEmail(ReservationEntity reservation) {
+		
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        
+        try {
+            helper.setTo(reservation.getEmail());
+            helper.setSubject("Confirmation de réception de votre formulaire");
+            helper.setText("Bonjour " + reservation.getEmail() + ",\n\nVotre description: ");
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+        try {
+            javaMailSender.send(message);
+        } catch (MailException e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+    }
+
 	
 	
 	public ProductDto createProduct(ProductDto productDto) {

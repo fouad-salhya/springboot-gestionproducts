@@ -14,6 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.experimental.PackagePrivate;
 
 @Entity
 @Table(name = "reservations")
@@ -28,6 +29,17 @@ public class ReservationEntity implements Serializable {
 	@Column
 	private String reservationId;
 	
+	@Column
+	private String name;
+	
+	@Column
+	private String email;
+	
+	@Column 
+	private String message;
+	
+	
+
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
@@ -84,6 +96,30 @@ public class ReservationEntity implements Serializable {
 
 	public int getTotal_person() {
 		return total_person;
+	}
+	
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public void setTotal_person(int total_person) {

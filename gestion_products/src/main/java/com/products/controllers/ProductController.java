@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.products.dtos.ProductDto;
 import com.products.entities.ProductEntity;
+import com.products.entities.ReservationEntity;
 import com.products.entities.Type;
 import com.products.requests.ProductRequest;
 import com.products.responses.ProductResponse;
@@ -35,17 +37,6 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 	
-	@GetMapping("/test")
-	
-	public List<ProductEntity> test() {
-		
-  		List<ProductEntity> products = productService.getProducts();
-  		List<ProductEntity> productsBreakfast = products.stream().filter(product -> product.getType().equals(Type.dinner)).collect(Collectors.toList());
-
-  		 return productsBreakfast;
-		
-	}
-	
 	@GetMapping("/home")
 	public String getIndex(Model model) {
 		
@@ -57,12 +48,26 @@ public class ProductController {
 
 		
 		model.addAttribute("types", Type.values());
+		model.addAttribute("reservation", new ReservationEntity());
 		model.addAttribute("productsBreakfast", productsBreakfast);
 		model.addAttribute("productsDinner", productsDinner);
 		model.addAttribute("productsLaunch", productsLaunch);
 
 		
 		return "index";
+	}
+	
+	@PostMapping("/home")
+	public String reserverTable(ReservationEntity reservation, Model model) {
+		
+		productService.reserverTable(reservation);
+		
+		String message = "votre reservation fait avec success check your inbox ";
+		
+		model.addAttribute("message", message);
+		
+		return "redirect:/home";
+		
 	}
 	
 	
