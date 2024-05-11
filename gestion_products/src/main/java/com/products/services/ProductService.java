@@ -2,6 +2,7 @@ package com.products.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +76,17 @@ public class ProductService {
             e.printStackTrace(); // Handle the exception appropriately
         }
     }
+	
+	public Optional<ProductEntity> getOneProduct(long id) {
+		
+		return productRepository.findById(id);
+	}
+	
+	public List<ProductEntity> getRelatedProducts(Type type) {
+		
+		return productRepository.findAllByType(type);
+		
+	}
 
 	
 	

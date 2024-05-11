@@ -13,12 +13,32 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserEntity implements Serializable  {
 
 	private static final long serialVersionUID = -411114782216027212L;
+	
+	public UserEntity(String userId, String name, String email, String telephone, String adresse, Role role) {
+		
+		this.userId = userId;
+		this.name = name;
+		this.email = email;
+		this.telephone = telephone;
+		this.adresse = adresse;
+		this.role = role;
+	}
+	
+	public UserEntity() { }
 	
 	@Id
 	@GeneratedValue(strategy =  GenerationType.AUTO)
@@ -51,6 +71,7 @@ public class UserEntity implements Serializable  {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<CommandeEntity> commandes;
 
+	
 	public String getUserId() {
 		return userId;
 	}

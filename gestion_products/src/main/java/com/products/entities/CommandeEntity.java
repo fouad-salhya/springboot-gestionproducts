@@ -1,6 +1,7 @@
 package com.products.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -30,11 +31,81 @@ public class CommandeEntity implements Serializable{
 	@Column
 	private String commandeId;
 	
-	@DateTimeFormat(pattern = "MM/dd/yyyy HH:mm")
-    private Date date_commande;
+	@Column 
+	private String productName;
+	
+	@Column 
+	private String numCommande;
 	
 	@Column
-	private double prix_total;
+	private int quantity;
+	
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getCommandeId() {
+		return commandeId;
+	}
+
+	public void setCommandeId(String commandeId) {
+		this.commandeId = commandeId;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public String getNumCommande() {
+		return numCommande;
+	}
+
+	public void setNumCommande(String numCommande) {
+		this.numCommande = numCommande;
+	}
+
+	public BigDecimal getPrix_total() {
+		return prix_total;
+	}
+
+	public void setPrix_total(BigDecimal prix_total) {
+		this.prix_total = prix_total;
+	}
+
+	public UserEntity getUser() {
+		return user;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
+	}
+
+	public List<ProductEntity> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<ProductEntity> products) {
+		this.products = products;
+	}
+
+	@Column
+	private BigDecimal prix_total;
 	
 	@OneToOne
 	@JoinColumn(name = "user_id")

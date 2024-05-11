@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Details</title>
+</head>
+<body>
+    <h1>Product Details</h1>
+    <p th:text="${product.name}"></p>
+    <p th:text="${product.prix}"></p>
+    <a th:href="@{/restoran/commande/payment/{id}(id=${product.id})}">Commander</a>
+
+    <!-- Add more details here as needed -->
+    
+     <h2>Similar Products</h2>
+    <ul>
+        <li th:each="related : ${relatedProducts}">
+            <a th:href="@{/restoran/product/detail/{id}(id=${related.id})}" th:text="${related.name}"></a>
+        </li>
+    </ul>
+</body>
+</html>

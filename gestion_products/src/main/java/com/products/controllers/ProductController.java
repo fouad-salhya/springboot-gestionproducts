@@ -2,6 +2,7 @@ package com.products.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -57,6 +58,37 @@ public class ProductController {
 		return "index";
 	}
 	
+	@GetMapping("/product/detail/{id}")
+	public String detailProduct(@PathVariable long id, Model model) {
+		
+		Optional<ProductEntity> productOptional = productService.getOneProduct(id);
+		
+		ProductEntity product = productOptional.get();
+		
+		List<ProductEntity> relatedProducts = productService.getRelatedProducts(product.getType());
+		
+		model.addAttribute("product", product);
+		
+		model.addAttribute("relatedProducts", relatedProducts);
+		
+		return "product_detail";
+	}
+	
+	@GetMapping("/commande/payment/{id}")
+	public String getCart(@PathVariable long id, Model model) {
+		
+        Optional<ProductEntity> productOptional = productService.getOneProduct(id);
+		
+		ProductEntity product = productOptional.get();
+		model.addAttribute("product", product);
+
+		int quantity = 1;
+		model.addAttribute("quantity", quantity);
+		
+		return "cart.html";
+	}
+	
+	
 	@PostMapping("/home")
 	public String reserverTable(ReservationEntity reservation, Model model) {
 		
@@ -107,21 +139,6 @@ public class ProductController {
 	}
 
 	
-	/*
-	@PostMapping("/add")
-	public ResponseEntity<ProductResponse> addProduct(@RequestBody ProductRequest productRequest) {
-		
-		ModelMapper modelMapper = new ModelMapper();
-		
-		ProductDto productDto = modelMapper.map(productRequest, ProductDto.class);
-		
-		ProductDto newProduct = productService.createProduct(productDto);
-		
-		ProductResponse productResponse = modelMapper.map(newProduct, ProductResponse.class);
-		
-		return new ResponseEntity<ProductResponse>(productResponse, HttpStatus.CREATED);
-	}*/
-	
 	@PostMapping("/add")
 	public ProductDto addProduct(@RequestBody ProductRequest productRequest) {
 		
@@ -134,68 +151,10 @@ public class ProductController {
 		
 	}
 	
-	@PutMapping("/edit/{id}")
-	public ResponseEntity<ProductResponse> editProduct(@PathVariable String id, @RequestBody ProductRequest productRequest) {
-		
-		ModelMapper modelMapper = new ModelMapper();
-		
-		ProductDto productDto = modelMapper.map(productRequest, ProductDto.class);
-		
-		ProductDto newProduct = productService.updateProduct(id, productDto);
-		
-		ProductResponse productResponse = modelMapper.map(newProduct, ProductResponse.class);
-		
-		return new ResponseEntity<ProductResponse>(productResponse, HttpStatus.ACCEPTED);
-	}
 	
 	
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Object> deleteProduct(@PathVariable String id) {
-		
-		productService.deleteProduct(id);
-		
-    	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
-	}
 	
 	
-	@GetMapping("/pagination")
-	public List<ProductResponse> getAll(@RequestParam(value = "page" , defaultValue = "1") int page, @RequestParam(value = "limit", defaultValue = "5") int limit) {
-		
-		ModelMapper modelMapper = new ModelMapper();
-		
-		List<ProductResponse> productsResponse = new ArrayList<>();
-		
-		List<ProductDto> productsDto = productService.getAll(page, limit);
-		
-		for(ProductDto product: productsDto) {
-			
-			ProductResponse productResponse = modelMapper.map(product, ProductResponse.class);
-			productsResponse.add(productResponse);
-		}
-		
-		return productsResponse;
-		
-	}
 	
-  	@GetMapping("/search") 
-	public List<ProductResponse> searchProduct() {
-
-  		
-  		ModelMapper modelMaper = new ModelMapper();
-		List<ProductResponse> productsResponse = new ArrayList<>();
-		
-		List<ProductDto> productsDto = productService.search();
-		
-		for(ProductDto product: productsDto) {
-			
-			ProductResponse productResponse = modelMaper.map(product, ProductResponse.class);
-			
-			productsResponse.add(productResponse);
-		}
-
-  		return productsResponse;
-  	}
-  	
-  	
+	
 }
