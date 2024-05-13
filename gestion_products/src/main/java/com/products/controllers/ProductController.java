@@ -137,6 +137,16 @@ public class ProductController {
 	public String getTestimonial() {
 		return "testimonial";
 	}
+	
+	@GetMapping("/login")
+	public String getLogin() {
+		return "login";
+	}
+	
+	@GetMapping("/signup")
+	public String getSignup() {
+		return "signup";
+	}
 
 	
 	@PostMapping("/add")

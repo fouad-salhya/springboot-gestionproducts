@@ -1,0 +1,50 @@
+<Html>
+<Head>
+	<meta charset="utf-8">
+	<title>Restoran - Login</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	
+	<!-- Template Stylesheet -->
+	<link href="/css/auth.css" rel="stylesheet">
+</Head>
+<Body>
+	<div class="container"></div>
+	<div class="modal">
+	  <div class="modal-container">
+	    <div class="modal-left">
+	      <h1 class="modal-title">Welcome!</h1>
+	      <p class="modal-desc">Please enter your credentials to savor the flavors of your favorite dishes and the warmth of our hospitality.</p>
+	      <div class="input-block">
+	        <label for="email" class="input-label">Email</label>
+	        <input type="email" name="email" id="email" placeholder="Email">
+	      </div>
+	      <div class="input-block">
+	        <label for="password" class="input-label">Password</label>
+	        <input type="password" name="password" id="password" placeholder="Password">
+	      </div>
+	      <div class="modal-buttons">
+	        <a href="" class="">Forgot your password?</a>
+	        <button class="input-button">Login</button>
+	      </div>
+	      <p class="sign-up">Don't have an account? <a href="signup">Sign up now</a></p>
+	    </div>
+	    <div class="modal-right">
+	      <img src="/img/bg-auth-02.avif" alt="">
+	    </div>
+	  </div>
+	</div>
+	<script>
+		const body = document.querySelector("body");
+		const modal = document.querySelector(".modal");
+		
+		const openModal = () => {
+		  modal.classList.add("is-open");
+		  body.style.overflow = "hidden";
+		};
+		
+		openModal();
+	</script>
+</Body>
+</Html>
